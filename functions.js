@@ -21,7 +21,7 @@ function getAuthorByName(authorName, authors) {
   let list = authors.filter(
     author => author.name.toLowerCase() === authorName.toLowerCase()
   );
-  return list[0];
+  return list[0]; // .find returns specific function
 }
 
 /**************************************************************
@@ -34,7 +34,7 @@ function bookCountsByAuthor(authors) {
   let list = authors.map(author => {
     return { author: author.name, bookCount: author.books.length };
   });
-  return list;
+  return list; //instead of return I can use ()
 }
 
 /**************************************************************
@@ -68,6 +68,7 @@ function titlesByAuthorName(authorName, authors, books) {
   let auth = getAuthorByName(authorName, authors);
   if (!auth) {
     return [];
+    //author.books.map(bookId=> getbookbyid.title)
   }
   let abooks = books.filter(book => {
     return auth.books.includes(book.id);
@@ -83,6 +84,7 @@ function titlesByAuthorName(authorName, authors, books) {
  * Note: assume there will never be a tie
  ****************************************************************/
 function mostProlificAuthor(authors) {
+  //we can use.sort((authorA,AuthorB)=>authorb,Authora)[0].author
   let max = 0;
   let name = "";
   authors.forEach(author => {
@@ -144,18 +146,25 @@ function relatedBooks(bookId, authors, books) {
  *   co-authored the greatest number of books
  ****************************************************************/
 function friendliestAuthor(authors) {
-  // authors.forEach(auth=>
-  //   {
-  //     auth.books.forEach(book =>
-  //       {authors.forEach(auth.books=>
-  //         { author.books.forEach(abook=> {if(abook===book)count=true;})
-  //         })
-  //     })
-  //   })
-  // for(let i=0; i<=authors.length;i++){
-  //   let b=authors[i].books;
-  //   for (let i=0; i<b.length;i++)
-  // }
+  authors.forEach(firstAuthor => {
+    firstAuthor.county = 0;
+    authors.forEach(secondAuthor => {
+      if (firstAuthor.name !== secondAuthor.name) {
+        const sharedBooks = firstAuthor.books.filter(bookId =>
+          secondAuthor.books.includes(bookId)
+        );
+        firstAuthor.county += sharedBooks.length;
+      }
+    });
+  });
+
+  let maximum = authors[0];
+  authors.forEach(author => {
+    if (author.county > maximum.county) {
+      maximum = author;
+    }
+  });
+  return maximum.name;
 }
 
 module.exports = {
