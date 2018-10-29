@@ -145,18 +145,17 @@ function relatedBooks(bookId, authors, books) {
  ****************************************************************/
 function friendliestAuthor(authors) {
   // authors.forEach(auth=>
-  //   { 
+  //   {
   //     auth.books.forEach(book =>
   //       {authors.forEach(auth.books=>
   //         { author.books.forEach(abook=> {if(abook===book)count=true;})
   //         })
   //     })
   //   })
-  for(let i=0; i<=authors.length;i++){
-    let b=authors[i].books;
-    for (let i=0; i<b.length)
-  }
-    
+  // for(let i=0; i<=authors.length;i++){
+  //   let b=authors[i].books;
+  //   for (let i=0; i<b.length;i++)
+  // }
 }
 
 module.exports = {
